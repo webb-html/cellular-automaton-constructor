@@ -1,0 +1,152 @@
+/* курсив не импортировал */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Ubuntu', 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.contaner {
+    /* background-color заменю на норм цвет пока просто чтобы лучше видеть*/
+    background-color: #181818;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.head {
+    display: flex; 
+    width: 100%;
+    height: 6%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #282828;
+    box-shadow: 2px 5px 8px 2px #1f1f1f;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+
+}
+
+.select_language{
+    background-color: transparent;
+    margin-right: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.language_text{
+    margin-left: 45px;
+    color: white;
+}
+
+.element_contener{
+    display: flex;
+    justify-content: center ;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 94;    
+}
+
+._h1 {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /*
+    background-color: #282828;
+    box-shadow: 2px 5px 8px 2px #1f1f1f;
+    */
+    height: 10%;
+    color: white;
+    width: 100%;
+    border-radius: 15px;
+    padding: 20px;    
+}
+
+.table {
+    justify-content: center;
+    background-color: #282828ab;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.table_head {
+    height: 6%;
+    background-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 10%;
+    height: 33%;
+    border-radius: 5px;  
+    background: #44424246;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; 
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+.slider_info {
+    margin-right: 10px;
+}
+
+.cell_container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+}
+
+.cell {
+    /*height: 30px;
+    width: 30px; */
+    background-color: #222;
+    box-shadow: 0 0 2px #000; 
+}
+.code {
+    justify-content: center;
+    display: flex;
+    background-color: blueviolet;
+    width: 93.7%;
+}
+
+/*@media (min-width: 768px){
+    .select_language {
+        font-size: 28.38px;
+    }
+}*/

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--голова сайта, шрафты, и тд.-->
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  подключить к переменной <title>-->
+    <title>Конструктор клеточного автомата</title>
+
+</head>
+
+<body>
+    <!--структура сайта-->
+    <div class="contaner">
+        <div class="head">
+            <!-- шапка текста (возможно переключение языка или подобное)-->
+            <div class="select_language">
+                <!-- шапка для языка-->
+                <p class="language_text" id="0-0-0-0">
+                    Русский
+                </p>
+                <p class="language_text" id="0-0-0-1">
+                    English
+                </p>
+
+            </div>
+        </div>
+        <!--контенер основных элементов -->
+        <div class="element_contener">
+            <div class="_h1">
+                <!-- подключить к переменной-->
+                <p>КРАЙНЕ уважающий себя текст</p>
+            </div>
+            <div class="table">
+                <div class="table_head">
+                    <!-- подключить к переменной-->
+                    <label for="speed" class="slider_info">Speed</label>
+                    <!-- заголовок таблицы-->
+                    <input type="range" class="slider" name="speed" min="0.1" max="3", step="0.1" />
+                    <p class="slider_text"></p>
+                </div>
+                <!-- div таблицы с клетками-->
+                <div class="cell_container">
+                </div>
+            </div>
+            <div class="code">
+                <!--
+                место для добавления условия работы автомата
+                со старта можно поставить условия игры жизнь 
+                -->
+                pass
+                <div class="code_header">
+
+                </div>
+                <div class="condition_container">
+                    <!-- НЕТ-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- это забей подключение к js файлу-->
+    <script src="index.js"></script>
+</body>
