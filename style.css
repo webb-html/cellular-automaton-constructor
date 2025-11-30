@@ -132,7 +132,7 @@ body {
     margin-right: 10px;
 }
 
-.delete_button {
+.delete_btn {
     display: flex;
     align-items: center;
     background-color:#3634346e;
@@ -142,7 +142,7 @@ body {
     margin-right: 10px;
 }
 
-.fill_button {
+.fill_btn {
     display: flex;
     align-items: center;
     background-color:#3634346e;
@@ -152,7 +152,7 @@ body {
     margin-right: 10px;
 }
 
-.run_button {
+.run_btn {
     position: relative;
     display: flex;
     align-items: center;
@@ -164,7 +164,7 @@ body {
     margin-right: 10px;
 }
 
-.ico {
+.icon {
     height: 17px;
     margin-right: 2px;
 }
