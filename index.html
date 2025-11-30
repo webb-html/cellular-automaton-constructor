@@ -36,11 +36,25 @@
             </div>
             <div class="table">
                 <div class="table_head">
-                    <!-- подключить к переменной-->
-                    <label for="speed" class="slider_info">Speed</label>
                     <!-- заголовок таблицы-->
-                    <input type="range" class="slider" name="speed" min="0.1" max="3", step="0.1" />
-                    <p class="slider_text"></p>
+                    <!-- подключить к переменной--> 
+                    <div class="change_speed">
+                        <label for="speed" class="slider_info">Speed</label>
+                        <input type="range" class="slider" name="speed" min="0.1" max="3" , step="0.1" />
+                        <p class="slider_text"></p>
+                    </div>
+                    <div class="delete_button">
+                        <img src="delete.svg" for="delete" class="ico">
+                        <label name="delete" class="delete">Clear</label>
+                    </div>
+                    <div class="fill_button">
+                        <img src="update.svg" for="fill" class="ico">
+                        <label name="fill" class="fill">Random fill</label>
+                    </div>
+                    <div class="run_button">
+                        <img src="run.svg" for="run" class="ico">
+                        <label name="fill" class="run">Run</label>
+                    </div>
                 </div>
                 <!-- div таблицы с клетками-->
                 <div class="cell_container">

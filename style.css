@@ -82,16 +82,24 @@ body {
 }
 
 .table_head {
-    height: 6%;
+    height: 8%;
     background-color: transparent;
     color: white;
     display: flex;
     align-items: center;
 }
 
+.change_speed{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    margin: 10px;
+}
+
 .slider {
     -webkit-appearance: none;
-    width: 10%;
+    width: 100%;
     height: 33%;
     border-radius: 5px;  
     background: #44424246;
@@ -122,6 +130,43 @@ body {
 
 .slider_info {
     margin-right: 10px;
+}
+
+.delete_button {
+    display: flex;
+    align-items: center;
+    background-color:#3634346e;
+    padding: 3px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 8px 2px #1d1d1d7e;
+    margin-right: 10px;
+}
+
+.fill_button {
+    display: flex;
+    align-items: center;
+    background-color:#3634346e;
+    padding: 3px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 8px 2px #1d1d1d7e;
+    margin-right: 10px;
+}
+
+.run_button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* сделать зеленым */
+    background-color:#3634346e;
+    padding: 3px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 8px 2px #1d1d1d7e;
+    margin-right: 10px;
+}
+
+.ico {
+    height: 17px;
+    margin-right: 2px;
 }
 
 .cell_container{
