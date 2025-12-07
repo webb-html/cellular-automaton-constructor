@@ -7,7 +7,6 @@ const table_head = document.querySelector('.table_head')
 const slider = document.querySelector('.slider')
 const slider_text = document.querySelector('.slider_text')
 const sel_lang = document.querySelector('.select_language')
-const _h1 = document.querySelector('._h1')
 const cell_size = body.offsetHeight / 30
 const run_button = document.querySelector('.run_btn')
 const delete_button = document.querySelector('.delete_btn')
