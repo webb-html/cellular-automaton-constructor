@@ -7,6 +7,7 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #181818;
 }
 
 body {
@@ -23,7 +24,7 @@ body {
 }
 
 .head {
-    display: flex; 
+    display: flex;
     width: 100%;
     height: 6%;
     margin-left: 0;
@@ -37,24 +38,25 @@ body {
 
 }
 
-.select_language{
+.select_language {
     background-color: transparent;
     margin-right: 45px;
     display: flex;
     align-items: center;
 }
 
-.language_text{
+.language_text {
     margin-left: 45px;
     color: white;
+    cursor: pointer;
 }
 
-.element_contener{
+.element_contener {
     display: flex;
-    justify-content: center ;
+    justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-    height: 94;    
+    height: 94;
 }
 
 ._h1 {
@@ -69,7 +71,7 @@ body {
     color: white;
     width: 100%;
     border-radius: 15px;
-    padding: 20px;    
+    padding: 20px;
 }
 
 .table {
@@ -89,7 +91,7 @@ body {
     align-items: center;
 }
 
-.change_speed{
+.change_speed {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,24 +100,25 @@ body {
 }
 
 .slider {
+    --sliderSize: 15px;
     -webkit-appearance: none;
     width: 100%;
     height: 33%;
-    border-radius: 5px;  
+    border-radius: 5px;
     background: #44424246;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    
+
 }
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%; 
+    width: var(--sliderSize);
+    height: var(--sliderSize);
+    border-radius: 50%;
     background: rgb(255, 255, 255);
     cursor: pointer;
 }
@@ -135,7 +138,7 @@ body {
 .delete_btn {
     display: flex;
     align-items: center;
-    background-color:#3634346e;
+    background-color: #3634346e;
     padding: 3px;
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
@@ -145,7 +148,7 @@ body {
 .fill_btn {
     display: flex;
     align-items: center;
-    background-color:#3634346e;
+    background-color: #3634346e;
     padding: 3px;
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
@@ -157,19 +160,29 @@ body {
     display: flex;
     align-items: center;
     /* сделать зеленым */
-    background-color:#3634346e;
+    background-color: #3634346e;
     padding: 3px;
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
     margin-right: 10px;
 }
 
-.icon {
-    height: 17px;
-    margin-right: 2px;
+.add_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3634346e;
+    border-radius: 5px;
+    box-shadow: 2px 5px 8px 2px #1d1d1d7e;
 }
 
-.cell_container{
+.icon {
+    --iconMargin: 4px;
+    height: 17px;
+    margin-right: var(--iconMargin);
+}
+
+.cell_container {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -181,13 +194,79 @@ body {
     /*height: 30px;
     width: 30px; */
     background-color: #222;
-    box-shadow: 0 0 2px #000; 
+    box-shadow: 0 0 2px #000;
 }
+
 .code {
     justify-content: center;
     display: flex;
-    background-color: blueviolet;
-    width: 93.7%;
+    flex-wrap: wrap;
+    background-color: #282828ab;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    color: white;
+}
+
+.code_header {
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.rules {
+    background-color: #1f1f1fb5;
+    border-radius: 15px;
+}
+
+.color_heading_container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 4px solid #282828ab;
+}
+
+.colors {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col_elem {
+    display: flex;
+    align-items: center;
+    background-color: #282828;
+    margin: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+}
+
+.sel_color {
+    --size: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: var(--size);
+    height: var(--size);
+    border: none;
+    cursor: pointer;
+}
+
+.sel_color::-webkit-color-swatch {
+    border-radius: 50%;
+    border: transparent;
+}
+
+.sel_color::-moz-color-swatch {
+    border-radius: 50%;
+    border: transparent;
+}
+
+.add_btn {
+    background-image: 'update.svg';
 }
 
 /*@media (min-width: 768px){

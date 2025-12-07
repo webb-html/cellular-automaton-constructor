@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--  подключить к переменной <title>-->
-    <title>Конструктор клеточного автомата</title>
+    <title class="title">Конструктор клеточного автомата</title>
 
 </head>
 
@@ -16,13 +16,14 @@
     <!--структура сайта-->
     <div class="contaner">
         <div class="head">
+            <!-- не забыть добавить сюда help-->
             <!-- шапка текста (возможно переключение языка или подобное)-->
             <div class="select_language">
                 <!-- шапка для языка-->
-                <p class="language_text" id="0-0-0-0">
+                <p class="language_text" id="ru_lng">
                     Русский
                 </p>
-                <p class="language_text" id="0-0-0-1">
+                <p class="language_text" id="en_lng">
                     English
                 </p>
 
@@ -32,27 +33,27 @@
         <div class="element_contener">
             <div class="_h1">
                 <!-- подключить к переменной-->
-                <p>КРАЙНЕ уважающий себя текст</p>
+                <p class="_h1_info">КРАЙНЕ уважающий себя текст</p>
             </div>
             <div class="table">
                 <div class="table_head">
                     <!-- заголовок таблицы-->
-                    <!-- подключить к переменной--> 
+                    <!-- подключить к переменной-->
                     <div class="change_speed">
                         <label for="speed" class="slider_info">Speed</label>
                         <input type="range" class="slider" name="speed" min="0.1" max="3" , step="0.1" />
                         <p class="slider_text"></p>
                     </div>
                     <div class="delete_btn">
-                        <img src="delete.svg" for="delete" class="icon">
+                        <img src="delete.svg" for="delete" class="icon" id="del">
                         <label name="delete" class="delete">Clear</label>
                     </div>
                     <div class="fill_btn">
-                        <img src="update.svg" for="fill" class="icon">
+                        <img src="update.svg" for="fill" class="icon" id="fill">
                         <label name="fill" class="fill">Random fill</label>
                     </div>
                     <div class="run_btn">
-                        <img src="run.svg" for="run" class="icon">
+                        <img src="run.svg" for="run" class="icon" id="run">
                         <label name="fill" class="run">Run</label>
                     </div>
                 </div>
@@ -65,13 +66,34 @@
                 место для добавления условия работы автомата
                 думаю со старта можно поставить условия игры жизнь 
                 -->
-                pass
                 <div class="code_header">
+                    Rules
+                </div>
+                <div class="rules">
+                    <div class="condition_container">
+                        <!-- НЕТ-->
+                        <div class="color_heading_container">
+                            <div class="colors">
+                                <div class="col_elem">
+                                    <input type="color" class="sel_color" value="#000000">
+                                    <div class="col"></div>
+                                    <!--<img src="delete.svg" for="delete" class="icon" class="del_col" id="01" style="display: none;">-->
+                                </div>
+                            </div>
+                            <div class="add_btn">
+                                <img src="add.svg" class="icon" id="add_col">
+                            </div>
 
+                        </div>
+                        <p>condition_1</p>
+                        <p>condition_2</p>
+                        <p>condition_3</p>
+                        <p>condition_4</p>
+                        <p>condition_5</p>
+                    </div>
+                    <div class="add_btn"></div>
                 </div>
-                <div class="condition_container">
-                    <!-- НЕТ-->
-                </div>
+                <div style="height: 10px; width: 100%;"></div>
             </div>
         </div>
     </div>
