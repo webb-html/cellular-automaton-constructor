@@ -9,7 +9,6 @@ const board = document.querySelector('.cell_container');
 const table = document.querySelector('.table');
 const table_head = document.querySelector('.table_head');
 const slider = document.querySelector('.slider');
-const sel_color = document.querySelectorAll('.sel_color')
 const color = document.querySelectorAll('.col')
 const slider_text = document.querySelector('.slider_text');
 const sel_lang = document.querySelector('.select_language');
