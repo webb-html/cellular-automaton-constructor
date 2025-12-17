@@ -85,15 +85,40 @@
                             </div>
 
                         </div>
-                        <p>condition_1</p>
-                        <p>condition_2</p>
-                        <p>condition_3</p>
+                        <div class="condition">Create cell with color:
+                            <div class="color_visual"></div>
+                            <input class="condition_color_input" placeholder="color" maxlength="7">
+                            if :<input class="rule_condition" placeholder="write a condition">
+                        </div>
+                        <div class="condition">Delete cell with color:
+                            <div class="color_visual"></div>
+                            <input class="condition_color_input" placeholder="color" maxlength="7">
+                            if :<input class="rule_condition" placeholder="write a condition">
+                        </div>
+                        <div class="condition">Recolor cell with color:
+                            <div class="color_visual"></div>
+                            <input class="condition_color_input" placeholder="color" maxlength="7"> in color: 
+                            <div class="color_visual"></div>
+                            <input class="condition_color_input" placeholder="color" maxlength="7">
+                            if :<input class="rule_condition" placeholder="write a condition">
+                        </div>
                         <p>condition_4</p>
                         <p>condition_5</p>
                     </div>
-                    <div class="add_btn"></div>
+                    <div class="add_btn" id="add_cond_container">
+                        <img src="add.svg" class="icon" id="add_cond">
+                        <div id="sel_cond_alive">
+                            Allive cell if...
+                            <div id="sel_cond_kill">
+                                Kill cell if...
+                                <div id="sel_cond_recol">
+                                    Recolor cell if...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 10px; width: 100%;"></div>
                 </div>
-                <div style="height: 10px; width: 100%;"></div>
             </div>
         </div>
     </div>

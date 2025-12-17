@@ -270,6 +270,108 @@ body {
     cursor: pointer;
 }
 
+#add_cond_container {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: widh, margin, padding 0.1s cubic-bezier(0.99, 0.97, 0.89, 0.47);
+}
+
+#add_cond {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#sel_cond_alive {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 0px;
+    padding-left: 0px;
+    background-color: #36343471;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    transition: widh, margin, padding 0.1s cubic-bezier(0.99, 0.97, 0.89, 0.47);
+
+}
+
+#sel_cond_kill {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    padding-left: 10px;
+    background-color: #363434be;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#sel_cond_recol {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #3e3c3c9c;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+
+}
+
+.condition {
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    margin-top: 10px;
+    background-color: #3634346e;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.condition_color_input {
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: transparent;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Ubuntu', 'Roboto', Arial, Helvetica, sans-serif;
+    outline: none;
+    width: 6.5%;
+}
+
+.rule_condition {
+    display: flex;
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Ubuntu', 'Roboto', Arial, Helvetica, sans-serif;
+    outline: none;
+    width: 50%;
+}
+
+.rule_condition :focus {
+    border: none;
+}
+
+.color_visual {
+    border-radius: 50%;
+}
+
 /*@media (min-width: 768px){
     .select_language {
         font-size: 28.38px;

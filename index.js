@@ -40,6 +40,7 @@ const fill_info = document.querySelector('.fill');
 
 const add_button = document.querySelectorAll('.add_btn');
 const add_col_icon = document.getElementById('add_col');
+const add_cond_icon = document.getElementById('add_cond');
 
 const code = document.querySelector('.code');
 const code_header = document.querySelector('.code_header');
@@ -47,6 +48,15 @@ const code_header = document.querySelector('.code_header');
 const color_container = document.querySelector('.colors');
 
 const cond_container = document.querySelector('.condition_container');
+
+const conditions = document.querySelectorAll('.condition')
+const visual_colors = document.querySelectorAll('.color_visual')
+const condition_color_inputs = document.querySelectorAll('.condition_color_input')
+const rule_conditions = document.querySelectorAll('.rule_condition')
+
+const sel_cond_alive = document.getElementById('sel_cond_alive');
+const sel_cond_kill = document.getElementById('sel_cond_kill');
+const sel_cond_recol = document.getElementById('sel_cond_recol');
 
 var lang_ru = ['Конструктор клеточных автоматов', 'Скорость', 'Очистить', 'Заполнить рандомно', 'Запустить', 'Пауза', 'Правила'];
 var lang_en = ['Cellular automaton consructor', 'Speed', 'Clear', 'Random fill', 'Run', 'Pause', 'Rules'];
@@ -91,7 +101,6 @@ function initUi() {
 
     for (let i = 0; i < sel_color.length; i++) {
         sel_color[i].style.setProperty('--size', table_head.offsetHeight * 1.1 + 'px');
-        console.log(sel_color[i], sel_color[i].value);
         color[i].textContent = sel_color[i].value;
     }
 
@@ -100,7 +109,16 @@ function initUi() {
     add_col_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
     add_col_icon.style.setProperty('--iconMargin', '0px');
 
+    add_button[1].style.height = table_head.offsetHeight + 'px';
+    add_cond_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
+    add_cond_icon.style.setProperty('--iconMargin', '0px');
+
+    sel_cond_alive.style.visibility = 'hidden'
+    sel_cond_alive.style.width = '0px'
+
     cond_container.style.width = table_head.offsetWidth + 'px';
+
+    init_conditions_ui();
 
     console.log('init done');
 }
@@ -152,7 +170,7 @@ slider.oninput = function () {
 }
 
 window.addEventListener('resize', function () {
-    initUi()
+    this.location.reload()
 });
 
 change_lang_ru.addEventListener('click', function (event) {
@@ -188,9 +206,33 @@ function add_color_listeners() {
     for (let i = 0; i < colors.length; i++) {
         colors[i].addEventListener("input", function (event) {
             color[i].textContent = colors[i].value;
-            console.log(1);
         })
     }
+}
+
+function init_conditions_ui() {
+    for (let i = 0; i < condition_color_inputs.length; i++) {
+        condition_color_inputs[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px';
+        condition_color_inputs[i].addEventListener('input', function(e) {
+        condition_color_inputs[i].value = condition_color_inputs[i].value.replace(/[^#0-9a-f]/g, '');
+        if (condition_color_inputs[i].value[0] === '#' && ! (condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7)) {
+            visual_colors[i].style.width = table_head.offsetHeight * 0.7 + 'px';
+            visual_colors[i].style.height = table_head.offsetHeight * 0.7 + 'px';
+            visual_colors[i].style.marginLeft = '5px'
+            visual_colors[i].style.backgroundColor = condition_color_inputs[i].value;
+        }else{
+            visual_colors[i].style.width = '0px';
+            visual_colors[i].style.height = '0px';
+            visual_colors[i].style.marginLeft = '0px'
+            visual_colors[i].style.backgroundColor = condition_color_inputs[i].value;
+        };
+        console.log(condition_color_inputs[i].value[0] === '#' && ! (condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7), 'color');
+    }); 
+    };
+    for (let i = 0; i < conditions.length; i++) {
+        console.log(conditions[i].textContent)
+        rule_conditions[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px'; 
+    };
 }
 
 add_button[0].addEventListener('click', function (event) {
@@ -216,7 +258,29 @@ add_button[0].addEventListener('click', function (event) {
     add_color_listeners();
     initUi();
 });
+add_button[1].onmouseover = function () {
+    sel_cond_alive.style.width = ''
+    sel_cond_alive.style.marginLeft = '10px'
+    sel_cond_alive.style.paddingLeft = '10px'
+    sel_cond_alive.style.visibility = 'visible'
+
+    sel_cond_killstyle.width = ''
+
+    sel_cond_recol.style.width = ''
+
+};
+add_button[1].onmouseout = function () {
+    sel_cond_alive.style.width = '0px'
+    sel_cond_alive.style.marginLeft = '0px'
+    sel_cond_alive.style.padding = '0px'
+    sel_cond_alive.style.visibility = 'hidden'
+
+    sel_cond_kill.style.width = '0px'
+
+    sel_cond_recol.style.width = '0px'
+};
 
 initUi();
 printValues();
 add_color_listeners();
+console.log(conditions[0].textContent)
