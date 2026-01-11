@@ -77,7 +77,7 @@
                                 <div class="col_elem">
                                     <input type="color" class="sel_color" value="#000000">
                                     <div class="col"></div>
-                                    <!--<img src="delete.svg" for="delete" class="icon" class="del_col" id="01" style="display: none;">-->
+                                    <img src="delete.svg" class="icon del_elem">
                                 </div>
                             </div>
                             <div class="add_btn">
@@ -85,34 +85,37 @@
                             </div>
 
                         </div>
-                        <div class="condition">Create cell with color:
+                        <div class="condition">
+                            <p>Create cell with color:</p>
                             <div class="color_visual"></div>
                             <input class="condition_color_input" placeholder="color" maxlength="7">
-                            if :<input class="rule_condition" placeholder="write a condition">
+                            <p>if :</p>
+                            <input class="rule_condition" placeholder="write a condition">
+                            <img src="delete.svg" class="icon del_cond"> 
                         </div>
                         <div class="condition">Delete cell with color:
                             <div class="color_visual"></div>
                             <input class="condition_color_input" placeholder="color" maxlength="7">
                             if :<input class="rule_condition" placeholder="write a condition">
+                            <img src="delete.svg" class="icon del_cond">    
                         </div>
                         <div class="condition">Recolor cell with color:
                             <div class="color_visual"></div>
-                            <input class="condition_color_input" placeholder="color" maxlength="7"> in color: 
+                            <input class="condition_color_input" placeholder="color" maxlength="7"> in color:
                             <div class="color_visual"></div>
                             <input class="condition_color_input" placeholder="color" maxlength="7">
                             if :<input class="rule_condition" placeholder="write a condition">
+                            <img src="delete.svg" class="icon del_cond"> 
                         </div>
-                        <p>condition_4</p>
-                        <p>condition_5</p>
                     </div>
-                    <div class="add_btn" id="add_cond_container">
+                    <div class="add_btn" id="add_cond_container" style="margin-top: 10px;">
                         <img src="add.svg" class="icon" id="add_cond">
                         <div id="sel_cond_alive">
-                            Allive cell if...
+                            <p id="add_condition_btn">Allive cell if...</p>
                             <div id="sel_cond_kill">
-                                Kill cell if...
+                                <p id="kill_condition_btn">Kill cell if...</p>
                                 <div id="sel_cond_recol">
-                                    Recolor cell if...
+                                    <p id="recolor_condition_btn">Recolor cell if...</p>
                                 </div>
                             </div>
                         </div>

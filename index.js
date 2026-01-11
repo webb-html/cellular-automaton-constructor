@@ -42,6 +42,8 @@ const add_button = document.querySelectorAll('.add_btn');
 const add_col_icon = document.getElementById('add_col');
 const add_cond_icon = document.getElementById('add_cond');
 
+const del_elem = document.querySelectorAll('.del_elem')
+
 const code = document.querySelector('.code');
 const code_header = document.querySelector('.code_header');
 
@@ -58,10 +60,13 @@ const sel_cond_alive = document.getElementById('sel_cond_alive');
 const sel_cond_kill = document.getElementById('sel_cond_kill');
 const sel_cond_recol = document.getElementById('sel_cond_recol');
 
+const add_condition_btn = document.getElementById('add_condition_btn');
+const kill_condition_btn = document.getElementById('kill_condition_btn');
+const recolor_condition_btn = document.getElementById('recolor_condition_btn');
+
 var lang_ru = ['Конструктор клеточных автоматов', 'Скорость', 'Очистить', 'Заполнить рандомно', 'Запустить', 'Пауза', 'Правила'];
 var lang_en = ['Cellular automaton consructor', 'Speed', 'Clear', 'Random fill', 'Run', 'Pause', 'Rules'];
 var lang_use = lang_en;
-
 
 function initUi() {
     document.title = lang_use[0];
@@ -200,38 +205,72 @@ change_lang_eng.addEventListener('click', function (event) {
 });
 
 function add_color_listeners() {
+    const col_elem = document.querySelectorAll('.col_elem');
     const colors = document.querySelectorAll('.sel_color');
     const color = document.querySelectorAll('.col');
+    const del_elem = document.querySelectorAll('.del_elem');
 
     for (let i = 0; i < colors.length; i++) {
         colors[i].addEventListener("input", function (event) {
             color[i].textContent = colors[i].value;
         })
     }
+    for (let i = 0; i < del_elem.length; i++) {
+        del_elem[i].style.height = '0px';
+        del_elem[i].addEventListener('click', function () {
+            this.parentNode.remove();
+        });
+        col_elem[i].onmouseover = function () {
+            del_elem[i].style.height = table_head.offsetHeight * 0.5 + 'px'
+            del_elem[i].style.marginLeft = '4px';
+            del_elem[i].style.visibility = 'visible';
+        };
+        col_elem[i].onmouseout = function () {
+            del_elem[i].style.height = '0px'
+            del_elem[i].style.marginLeft = '0px';
+            del_elem[i].style.visibility = 'hidden';
+        };
+    }
 }
 
 function init_conditions_ui() {
+    const conditions = document.querySelectorAll('.condition');
+    const visual_colors = document.querySelectorAll('.color_visual');
+    const condition_color_inputs = document.querySelectorAll('.condition_color_input');
+    const rule_conditions = document.querySelectorAll('.rule_condition');
+    const del_cond = document.querySelectorAll('.del_cond');
+
     for (let i = 0; i < condition_color_inputs.length; i++) {
         condition_color_inputs[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px';
-        condition_color_inputs[i].addEventListener('input', function(e) {
-        condition_color_inputs[i].value = condition_color_inputs[i].value.replace(/[^#0-9a-f]/g, '');
-        if (condition_color_inputs[i].value[0] === '#' && ! (condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7)) {
-            visual_colors[i].style.width = table_head.offsetHeight * 0.7 + 'px';
-            visual_colors[i].style.height = table_head.offsetHeight * 0.7 + 'px';
-            visual_colors[i].style.marginLeft = '5px'
-            visual_colors[i].style.backgroundColor = condition_color_inputs[i].value;
-        }else{
-            visual_colors[i].style.width = '0px';
-            visual_colors[i].style.height = '0px';
-            visual_colors[i].style.marginLeft = '0px'
-            visual_colors[i].style.backgroundColor = condition_color_inputs[i].value;
-        };
-        console.log(condition_color_inputs[i].value[0] === '#' && ! (condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7), 'color');
-    }); 
+        condition_color_inputs[i].addEventListener('input', function (e) {
+            condition_color_inputs[i].value = condition_color_inputs[i].value.replace(/[^#0-9a-f]/g, '');
+            if (condition_color_inputs[i].value[0] === '#' && !(condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7)) {
+                visual_colors[i].style.width = table_head.offsetHeight * 0.7 + 'px';
+                visual_colors[i].style.height = table_head.offsetHeight * 0.7 + 'px';
+                visual_colors[i].style.marginLeft = '5px'
+                visual_colors[i].style.backgroundColor = condition_color_inputs[i].value;
+            } else {
+                visual_colors[i].style.width = '0px';
+                visual_colors[i].style.height = '0px';
+                visual_colors[i].style.marginLeft = '0px'
+                visual_colors[i].style.backgroundColor = condition_color_inputs[i].value;
+            };
+            console.log(condition_color_inputs[i].value[0] === '#' && !(condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7), 'color');
+        });
     };
     for (let i = 0; i < conditions.length; i++) {
-        console.log(conditions[i].textContent)
-        rule_conditions[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px'; 
+        rule_conditions[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px';
+        del_cond[i].style.height = table_head.offsetHeight * 0.5 + 'px';
+        del_cond[i].style.visibility = 'hidden';
+        del_cond[i].addEventListener('click', function () {
+            this.parentNode.remove();
+        });
+        conditions[i].onmouseover = function () {
+            del_cond[i].style.visibility = 'visible';
+        };
+        conditions[i].onmouseout = function () {
+            del_cond[i].style.visibility = 'hidden';
+        };
     };
 }
 
@@ -249,8 +288,14 @@ add_button[0].addEventListener('click', function (event) {
     color_text.classList.add('col');
     color_text.textContent = '#000000';
 
+    del_col = document.createElement('img');
+    del_col.src = "delete.svg";
+    del_col.classList.add('icon');
+    del_col.classList.add('del_elem');
+
     elem_col.appendChild(color_input);
     elem_col.appendChild(color_text);
+    elem_col.appendChild(del_col)
     color_container.appendChild(elem_col);
 
     console.log('create new colors');
@@ -258,29 +303,174 @@ add_button[0].addEventListener('click', function (event) {
     add_color_listeners();
     initUi();
 });
+
 add_button[1].onmouseover = function () {
     sel_cond_alive.style.width = ''
-    sel_cond_alive.style.marginLeft = '10px'
-    sel_cond_alive.style.paddingLeft = '10px'
-    sel_cond_alive.style.visibility = 'visible'
+    sel_cond_alive.style.marginLeft = '10px';
+    sel_cond_alive.style.paddingLeft = '10px';
+    sel_cond_alive.style.visibility = 'visible';
 
-    sel_cond_killstyle.width = ''
+    sel_cond_kill.style.width = '';
 
-    sel_cond_recol.style.width = ''
-
+    sel_cond_recol.style.width = '';
 };
+
+add_condition_btn.addEventListener('click', function (event) {
+    cond = document.createElement('div');
+    cond.classList.add('condition');
+
+    p1 = document.createElement('p');
+    p1.textContent = 'Create cell with color:';
+
+    vis_col = document.createElement('div');
+    vis_col.classList.add('color_visual');
+
+    cond_col_input = document.createElement('input');
+    cond_col_input.classList.add('condition_color_input');
+    cond_col_input.placeholder = "color";
+    cond_col_input.maxLength = '7';
+    cond_col_input.setAttribute("type", "text");
+
+    p2 = document.createElement('p');
+    p2.textContent = 'if :';
+
+    cond_rul_input = document.createElement('input');
+    cond_rul_input.classList.add('rule_condition');
+    cond_rul_input.placeholder = "write a condition";
+    cond_rul_input.setAttribute("type", "text");
+
+    del_cond = document.createElement('img');
+    del_cond.src = "delete.svg";
+    del_cond.classList.add('icon');
+    del_cond.classList.add('del_cond');
+
+
+    cond.appendChild(p1);
+    cond.appendChild(vis_col);
+    cond.appendChild(cond_col_input);
+    cond.appendChild(p2)
+    cond.appendChild(cond_rul_input)
+    cond.appendChild(del_cond)
+    cond_container.appendChild(cond);
+
+    console.log('create new add condition')
+
+    init_conditions_ui();
+    initUi();
+});
+
+kill_condition_btn.addEventListener('click', function (event) {
+    cond = document.createElement('div');
+    cond.classList.add('condition');
+
+    p1 = document.createElement('p');
+    p1.textContent = 'Delete cell with color:';
+
+    vis_col = document.createElement('div');
+    vis_col.classList.add('color_visual');
+
+    cond_col_input = document.createElement('input');
+    cond_col_input.classList.add('condition_color_input');
+    cond_col_input.placeholder = "color";
+    cond_col_input.maxLength = '7';
+    cond_col_input.setAttribute("type", "text");
+
+    p2 = document.createElement('p');
+    p2.textContent = 'if :';
+
+    cond_rul_input = document.createElement('input');
+    cond_rul_input.classList.add('rule_condition');
+    cond_rul_input.placeholder = "write a condition";
+    cond_rul_input.setAttribute("type", "text");
+
+    del_cond = document.createElement('img');
+    del_cond.src = "delete.svg";
+    del_cond.classList.add('icon');
+    del_cond.classList.add('del_cond');
+
+    cond.appendChild(p1);
+    cond.appendChild(vis_col);
+    cond.appendChild(cond_col_input);
+    cond.appendChild(p2)
+    cond.appendChild(cond_rul_input);
+    cond.appendChild(del_cond);
+    cond_container.appendChild(cond);
+
+    console.log('create new delete condition')
+
+    init_conditions_ui();
+    initUi();
+});
+
+recolor_condition_btn.addEventListener('click', function (event) {
+    cond = document.createElement('div');
+    cond.classList.add('condition');
+
+    p1 = document.createElement('p');
+    p1.textContent = 'Recolor cell with color:';
+
+    vis_col = document.createElement('div');
+    vis_col.classList.add('color_visual');
+
+    cond_col_input = document.createElement('input');
+    cond_col_input.classList.add('condition_color_input');
+    cond_col_input.placeholder = "color";
+    cond_col_input.maxLength = '7';
+    cond_col_input.setAttribute("type", "text");
+
+    p2 = document.createElement('p');
+    p2.textContent = 'in color:';
+
+    vis_col2 = document.createElement('div');
+    vis_col2.classList.add('color_visual');
+
+    cond_col_input2 = document.createElement('input');
+    cond_col_input2.classList.add('condition_color_input');
+    cond_col_input2.placeholder = "color";
+    cond_col_input2.maxLength = '7';
+    cond_col_input2.setAttribute("type", "text");
+
+    p3 = document.createElement('p');
+    p3.textContent = 'if :';
+
+    cond_rul_input = document.createElement('input');
+    cond_rul_input.classList.add('rule_condition');
+    cond_rul_input.placeholder = "write a condition";
+    cond_rul_input.setAttribute("type", "text");
+
+    del_cond = document.createElement('img');
+    del_cond.src = "delete.svg";
+    del_cond.classList.add('icon');
+    del_cond.classList.add('del_cond');
+
+    cond.appendChild(p1);
+    cond.appendChild(vis_col);
+    cond.appendChild(cond_col_input);
+    cond.appendChild(p2);
+    cond.appendChild(vis_col2);
+    cond.appendChild(cond_col_input2);
+    cond.appendChild(p3);
+    cond.appendChild(cond_rul_input);
+    cond.appendChild(del_cond);
+    cond_container.appendChild(cond);
+
+    console.log('create new delete condition');
+
+    init_conditions_ui();
+    initUi();
+});
+
 add_button[1].onmouseout = function () {
-    sel_cond_alive.style.width = '0px'
-    sel_cond_alive.style.marginLeft = '0px'
-    sel_cond_alive.style.padding = '0px'
-    sel_cond_alive.style.visibility = 'hidden'
+    sel_cond_alive.style.width = '0px';
+    sel_cond_alive.style.marginLeft = '0px';
+    sel_cond_alive.style.padding = '0px';
+    sel_cond_alive.style.visibility = 'hidden';
 
-    sel_cond_kill.style.width = '0px'
+    sel_cond_kill.style.width = '0px';
 
-    sel_cond_recol.style.width = '0px'
+    sel_cond_recol.style.width = '0px';
 };
 
 initUi();
 printValues();
 add_color_listeners();
-console.log(conditions[0].textContent)

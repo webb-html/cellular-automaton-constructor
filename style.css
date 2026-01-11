@@ -14,6 +14,10 @@ body {
     font-family: 'Ubuntu', 'Roboto', Arial, Helvetica, sans-serif;
 }
 
+p {
+    margin: 0;
+}
+
 .contaner {
     /* background-color заменю на норм цвет пока просто чтобы лучше видеть*/
     background-color: #181818;
@@ -193,8 +197,8 @@ body {
 .cell {
     /*height: 30px;
     width: 30px; */
-    background-color: #222;
-    box-shadow: 0 0 2px #000;
+    background-color: #222222;
+    box-shadow: 0 0 2px #000000;
 }
 
 .code {
@@ -226,6 +230,11 @@ body {
     display: flex;
     flex-wrap: wrap;
     border-bottom: 4px solid #282828ab;
+}
+
+.del_elem{
+    cursor: pointer;
+    transition: all 0.1s linear;
 }
 
 .colors {
@@ -268,6 +277,7 @@ body {
 .add_btn {
     background-image: 'update.svg';
     cursor: pointer;
+    margin: 5px;
 }
 
 #add_cond_container {
@@ -276,7 +286,7 @@ body {
     align-items: center;
     margin-left: 10px;
     margin-right: 10px;
-    transition: widh, margin, padding 0.1s cubic-bezier(0.99, 0.97, 0.89, 0.47);
+    transition: all 0.1s linear;
 }
 
 #add_cond {
@@ -339,6 +349,7 @@ body {
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 5px;
+    transition: all 0.1s linear;
 }
 
 .condition_color_input {
@@ -361,7 +372,7 @@ body {
     color: white;
     font-family: 'Ubuntu', 'Roboto', Arial, Helvetica, sans-serif;
     outline: none;
-    width: 50%;
+    flex-grow: 1;
 }
 
 .rule_condition :focus {
@@ -370,6 +381,11 @@ body {
 
 .color_visual {
     border-radius: 50%;
+}
+
+.del_cond {
+    cursor: pointer;
+    transition: all 0.1s linear;
 }
 
 /*@media (min-width: 768px){
