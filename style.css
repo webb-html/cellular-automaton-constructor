@@ -147,6 +147,7 @@ p {
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .fill_btn {
@@ -157,6 +158,19 @@ p {
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+.delete {
+    cursor: pointer;
+}
+
+.fill {
+    cursor: pointer;
+}
+
+.run {
+    cursor: pointer;
 }
 
 .run_btn {
@@ -169,6 +183,7 @@ p {
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .add_btn {
@@ -199,6 +214,7 @@ p {
     width: 30px; */
     background-color: #222222;
     box-shadow: 0 0 2px #000000;
+    transition: all 0.15s linear;
 }
 
 .code {
@@ -250,6 +266,11 @@ p {
     margin: 5px;
     padding-right: 5px;
     border-radius: 10px;
+    transition: all 0.1s linear;
+}
+
+.col {
+    cursor:default;
 }
 
 .sel_color {
