@@ -1,5 +1,25 @@
-var st = 45;
-const cl = 15;
+if (screen.width / screen.height > 1.5){
+    var st = 45;
+    var cl = 15;
+    var modificator_head = 0.33;
+    var modificator_text = 0.5;
+} else if (screen.width / screen.height <= 1.5 && screen.width / screen.height > 1.334){
+    var st = 40;
+    var cl = 15;
+    var modificator_head = 0.33;
+    var modificator_text = 0.5;
+} else if (screen.width / screen.height <= 1.334 && screen.width / screen.height > 1) {
+    var st = 35;
+    var cl = 15;
+    var modificator_head = 0.33;
+    var modificator_text = 0.5;
+}  else {
+    var st = 10;
+    var cl = 10;
+    var modificator_head = 0.2;
+    var modificator_text = 0.3;
+}
+console.log(screen.width / screen.height)
 
 const body = document.body;
 
@@ -72,11 +92,11 @@ var selected_color = null;
 
 document.title = lang_use[0];
 
-sel_lang.style.fontSize = sel_lang.offsetHeight * 0.33 + 'px';
+sel_lang.style.fontSize = sel_lang.offsetHeight * modificator_head + 'px';
 change_lang_ru.style.color = '#bbbbbb';
 
 _h1.style.height = body.offsetHeight * 0.1 + 'px';
-_h1.style.fontSize = _h1.offsetHeight * 0.33 + 'px';
+_h1.style.fontSize = _h1.offsetHeight * modificator_head + 'px';
 _h1_info.textContent = lang_use[0];
 
 board.style.width = cell_size * st + 'px';
@@ -97,26 +117,25 @@ del_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
 
 fill_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
 
-run_button.style.left = ((cell_size * st) - (2 * run_button.offsetWidth) - speed_button.offsetWidth - delete_button.offsetWidth - fill_button.offsetWidth) + 'px';
 run_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
 
 code_header.style.height = table_head.offsetHeight + 'px';
 
 code.style.width = cell_size * st + 20 + 'px';
-code.style.fontSize = table_head.offsetHeight * 0.5 + 'px';
+code.style.fontSize = table_head.offsetHeight * modificator_text + 'px';
 
 for (let i = 0; i < colors.length; i++) {
     colors[i].style.setProperty('--size', table_head.offsetHeight * 1.1 + 'px');
     color[i].textContent = colors[i].value;
 }
 
-add_button[0].style.height = table_head.offsetHeight + 'px';
-add_button[0].style.width = table_head.offsetHeight + 'px'
-add_col_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
+add_button[0].style.height = table_head.offsetHeight * 2 * modificator_text + 'px';
+add_button[0].style.width = table_head.offsetHeight * 2 * modificator_text +'px'
+add_col_icon.style.height = table_head.offsetHeight * 2* modificator_text + 'px';
 add_col_icon.style.setProperty('--iconMargin', '0px');
 
-add_button[1].style.height = table_head.offsetHeight + 'px';
-add_cond_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
+add_button[1].style.height = table_head.offsetHeight  * 2 * modificator_text+ 'px';
+add_cond_icon.style.height = table_head.offsetHeight * 2 * modificator_text + 'px';
 add_cond_icon.style.setProperty('--iconMargin', '0px');
 
 sel_cond_alive.style.visibility = 'hidden'
@@ -171,7 +190,6 @@ change_lang_ru.addEventListener('click', function (event) {
     fill_info.textContent = lang_use[3];
     run_info.textContent = lang_use[4];
     code_header.textContent = lang_use[7]
-    run_button.style.left = ((cell_size * st) - (1.5 * run_button.offsetWidth) - speed_button.offsetWidth - delete_button.offsetWidth - fill_button.offsetWidth) + 'px';
     for (let i = 0; i < condition_text_create.length; i++) {
         condition_text_create[i].textContent = lang_use[8];
     };
@@ -211,7 +229,6 @@ change_lang_eng.addEventListener('click', function (event) {
     fill_info.textContent = lang_use[3];
     run_info.textContent = lang_use[4];
     code_header.textContent = lang_use[7]
-    run_button.style.left = ((cell_size * st) - (2 * run_button.offsetWidth) - speed_button.offsetWidth - delete_button.offsetWidth - fill_button.offsetWidth) + 'px';
     for (let i = 0; i < condition_text_create.length; i++) {
         condition_text_create[i].textContent = lang_use[8];
     };
@@ -283,7 +300,7 @@ function init_conditions_ui() {
     const del_cond = document.querySelectorAll('.del_cond');
 
     for (let i = 0; i < condition_color_inputs.length; i++) {
-        condition_color_inputs[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px';
+        condition_color_inputs[i].style.fontSize = table_head.offsetHeight * modificator_text + 'px';
         condition_color_inputs[i].addEventListener('input', function (e) {
             condition_color_inputs[i].value = condition_color_inputs[i].value.replace(/[^#0-9a-f]/g, '');
             if (condition_color_inputs[i].value[0] === '#' && !(condition_color_inputs[i].value.includes("#", 1)) && (condition_color_inputs[i].value.length === 7)) {
@@ -301,7 +318,7 @@ function init_conditions_ui() {
         });
     };
     for (let i = 0; i < conditions.length; i++) {
-        rule_conditions[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px';
+        rule_conditions[i].style.fontSize = table_head.offsetHeight * modificator_text + 'px';
         del_cond[i].style.height = table_head.offsetHeight * 0.5 + 'px';
         del_cond[i].style.visibility = 'hidden';
         del_cond[i].addEventListener('click', function () {
@@ -343,7 +360,11 @@ add_button[0].addEventListener('click', function (event) {
     console.log('create new colors');
 
     add_color_listeners();
-    initUi();
+    const colors = document.querySelectorAll('.sel_color');
+
+    for (let i = 0; i < colors.length; i++) {
+    colors[i].style.setProperty('--size', table_head.offsetHeight * (0.1 + 2 * modificator_text)  + 'px');
+    }
 });
 
 add_button[1].onmouseover = function () {

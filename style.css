@@ -99,7 +99,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
+    width: 30%;
     margin: 10px;
 }
 
@@ -147,6 +147,7 @@ p {
     border-radius: 5px;
     box-shadow: 2px 5px 8px 2px #1d1d1d7e;
     margin-right: 10px;
+    margin-left: 6px;
     cursor: pointer;
 }
 
