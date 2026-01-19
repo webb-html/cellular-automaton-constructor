@@ -8,8 +8,8 @@ if (screen.width / screen.height > 1.5){
     var st = 35;
     var cl = 15;
 }  else {
-    var st = 10;
-    var cl = 10;
+    var st = 15;
+    var cl = 15;
 }
 console.log(screen.width / screen.height)
 
