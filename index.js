@@ -1,13 +1,13 @@
-if (screen.width / screen.height > 1.5){
+if (screen.width / screen.height > 1.5) {
     var st = 45;
     var cl = 15;
-} else if (screen.width / screen.height <= 1.5 && screen.width / screen.height > 1.334){
+} else if (screen.width / screen.height <= 1.5 && screen.width / screen.height > 1.334) {
     var st = 40;
     var cl = 15;
 } else if (screen.width / screen.height <= 1.334 && screen.width / screen.height > 1) {
     var st = 35;
     var cl = 15;
-}  else {
+} else {
     var st = 15;
     var cl = 15;
 }
@@ -50,8 +50,11 @@ const cond_container = document.querySelector('.condition_container');
 const condition_text = document.querySelectorAll('.condition_text')
 const code_header = document.querySelector('.code_header');
 const code = document.querySelector('.code');
+const rule_condition = document.querySelectorAll('.rule_condition')
 
 selected_color = 'rgb(200, 210, 220)'
+
+var density = parseInt('50') * 0.01
 
 const lang_ru = ['Конструктор клеточных автоматов', 'Скорость',
     'Очистить', 'Заполнить', 'Запустить', 'Пауза', 'c', 'Правила',
@@ -94,7 +97,7 @@ run_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
 code_header.style.height = table_head.offsetHeight + 'px';
 
 code.style.width = cell_size * st + 20 + 'px';
-code.style.fontSize = table_head.offsetHeight * 0.5+ 'px';
+code.style.fontSize = table_head.offsetHeight * 0.5 + 'px';
 
 cond_container.style.width = table_head.offsetWidth + 'px';
 
@@ -122,11 +125,12 @@ slider[0].oninput = function () {
 
 slider[1].oninput = function () {
     slider_text[1].innerHTML = this.value + '%';
+    density = parseInt(this.value) * 0.01
 };
-
+`
 window.addEventListener('resize', function () {
     this.location.reload()
-});
+})`;
 
 change_lang_ru.addEventListener('click', function (event) {
 
@@ -152,7 +156,7 @@ change_lang_eng.addEventListener('click', function (event) {
     change_lang_ru.style.color = '#bbbbbb';
     change_lang_eng.style.color = '#ffffff';
     lang_use = lang_en;
-        document.title = lang_use[0];
+    document.title = lang_use[0];
     _h1_info.textContent = lang_use[0];
     slider_text.textContent = slider.value + lang_use[6];
     del_info.textContent = lang_use[2];
@@ -166,15 +170,17 @@ change_lang_eng.addEventListener('click', function (event) {
     speed_info[1].textContent = lang_use[12];
 });
 
-        `condition_color_inputs[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px'`;
-        `condition_color_inputs[i].addEventListener('input', function (e) {
-            condition_color_inputs[i].value = condition_color_inputs[i].value.replace(/[^#0-9a-f]/g, '');`
-            
+for (let i = 0; i < rule_condition.length; i++) {
+    rule_condition[i].addEventListener('input', function (event) {
+        rule_condition[i].value = rule_condition[i].value.replace(/[^0-9]/g, '');
+    });
+};
+
 fill_button.addEventListener('click', function (event) {
     const cells = document.querySelectorAll('.cell');
     for (let i = 0; i < cells.length; i++) {
-        var random_life = Math.floor(Math.random() * 2);
-        if (random_life == 1) {
+        var random_life = Math.random();
+        if (random_life <= density) {
             cells[i].style.backgroundColor = 'rgb(200, 210, 220)';
         } else {
             cells[i].style.backgroundColor = '#222222';
