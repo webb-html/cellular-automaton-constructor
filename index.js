@@ -123,10 +123,10 @@ slider.oninput = function () {
     slider_text.innerHTML = this.value + lang_use[6];
     console.log(`slider.value = ${this.value}`);
 };
-
+`
 window.addEventListener('resize', function () {
     this.location.reload()
-});
+});`
 
 change_lang_ru.addEventListener('click', function (event) {
     const condition_text_create = document.querySelectorAll('.condition_text_create');
