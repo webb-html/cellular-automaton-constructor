@@ -26,8 +26,8 @@ const table = document.querySelector('.table');
 const table_head = document.querySelector('.table_head');
 const board = document.querySelector('.cell_container');
 
-const slider = document.querySelector('.slider');
-const slider_text = document.querySelector('.slider_text');
+const slider = document.querySelectorAll('.slider');
+const slider_text = document.querySelectorAll('.slider_text');
 
 const cell_size = body.offsetHeight / 30;
 
@@ -40,27 +40,25 @@ const del_icon = document.getElementById('del');
 const del_info = document.querySelector('.delete');
 
 const speed_button = document.querySelector('.change_speed');
-const speed_info = document.querySelector('.slider_info');
+const speed_info = document.querySelectorAll('.slider_info');
 
 const fill_button = document.querySelector('.fill_btn');
 const fill_icon = document.getElementById('fill');
 const fill_info = document.querySelector('.fill');
 
-const cond_container = document.querySelector('.condition_container')
-const code_header = document.querySelector('.code_header')
+const cond_container = document.querySelector('.condition_container');
+const condition_text = document.querySelectorAll('.condition_text')
+const code_header = document.querySelector('.code_header');
 const code = document.querySelector('.code');
 
 selected_color = 'rgb(200, 210, 220)'
 
 const lang_ru = ['Конструктор клеточных автоматов', 'Скорость',
-    'Очистить', 'Заполнить рандомно', 'Запустить', 'Пауза', 'c', 'Правила',
-    'Cоздать клетку с цветом:', 'Удалить клету с цветом:', 'Перекрасить клетку с цветом:',
-    'в цвет:', 'если:', 'Создать клетку если...', 'Удалить клетку если...',
-    'Перекрасить клетку если...'];
+    'Очистить', 'Заполнить', 'Запустить', 'Пауза', 'c', 'Правила',
+    'Рождение(B):', 'Выживание(S):', 'Поколения:', 'Задержка', 'Плотность'];
 const lang_en = ['Cellular automaton consructor', 'Speed',
     'Clear', 'Random fill', 'Run', 'Pause', 's', 'Rules',
-    'Create cell with color:', 'Delete cell with color:', 'Recolor cell with color:',
-    'in color:', 'if:', 'Create cell if...', 'Delete cell if...', 'Recolor cell if...'];
+    'Born(B):', 'Survive(S):', 'Generations:', 'Delay', 'Density'];
 var lang_use = lang_en;
 
 document.title = lang_use[0];
@@ -81,10 +79,11 @@ table.style.height = (cell_size * cl) * 1.1 + 'px';
 table_head.style.width = cell_size * st + 'px';
 table_head.style.fontSize = table_head.offsetHeight * 0.5 + 'px';
 
-slider.value = 0.5;
-slider_text.innerHTML = slider.value + 's';
-slider.style.height = table_head.offsetHeight * 0.5 + 'px';
-slider.style.setProperty('--sliderSize', table_head.offsetHeight * 0.5 + 'px');
+slider[0].value = 0.5;
+slider_text[0].innerHTML = slider[0].value + 's';
+
+slider[1].value = 50;
+slider_text[1].innerHTML = slider[1].value + '%';
 
 del_icon.style.height = table_head.offsetHeight * 0.5 + 'px';
 
@@ -98,8 +97,6 @@ code.style.width = cell_size * st + 20 + 'px';
 code.style.fontSize = table_head.offsetHeight * 0.5+ 'px';
 
 cond_container.style.width = table_head.offsetWidth + 'px';
-
-
 
 for (let i = 0; i < cl; i++) {
     for (let j = 0; j < st; j++) {
@@ -119,21 +116,19 @@ for (let i = 0; i < cl; i++) {
     }
 };
 
-slider.oninput = function () {
-    slider_text.innerHTML = this.value + lang_use[6];
-    console.log(`slider.value = ${this.value}`);
+slider[0].oninput = function () {
+    slider_text[0].innerHTML = this.value + lang_use[6];
 };
-`
+
+slider[1].oninput = function () {
+    slider_text[1].innerHTML = this.value + '%';
+};
+
 window.addEventListener('resize', function () {
     this.location.reload()
-});`
+});
 
 change_lang_ru.addEventListener('click', function (event) {
-    const condition_text_create = document.querySelectorAll('.condition_text_create');
-    const condition_text_delete = document.querySelectorAll('.condition_text_delete');
-    const condition_text_reclolor = document.querySelectorAll('.condition_text_recolor');
-    const condition_text_in_color = document.querySelectorAll('.condition_text_in_color');
-    const condition_text_if = document.querySelectorAll('.condition_text_if');
 
     change_lang_eng.style.color = '#bbbbbb';
     change_lang_ru.style.color = '#ffffff';
@@ -141,69 +136,34 @@ change_lang_ru.addEventListener('click', function (event) {
     document.title = lang_use[0];
     _h1_info.textContent = lang_use[0];
     slider_text.textContent = slider.value + lang_use[6];
-    speed_info.textContent = lang_use[1];
     del_info.textContent = lang_use[2];
     fill_info.textContent = lang_use[3];
     run_info.textContent = lang_use[4];
-    code_header.textContent = lang_use[7]
-    for (let i = 0; i < condition_text_create.length; i++) {
-        condition_text_create[i].textContent = lang_use[8];
-    };
-    for (let i = 0; i < condition_text_delete.length; i++) {
-        condition_text_delete[i].textContent = lang_use[9];
-    };
-    for (let i = 0; i < condition_text_reclolor.length; i++) {
-        condition_text_reclolor[i].textContent = lang_use[10];
-    };
-    for (let i = 0; i < condition_text_in_color.length; i++) {
-        condition_text_in_color[i].textContent = lang_use[11];
-    };
-    for (let i = 0; i < condition_text_if.length; i++) {
-        condition_text_if[i].textContent = lang_use[12];
-    };
-    add_condition_btn.textContent = lang_use[13];
-    kill_condition_btn.textContent = lang_use[14];
-    recolor_condition_btn.textContent = lang_use[15];
-
+    code_header.textContent = lang_use[7];
+    condition_text[0].textContent = lang_use[8];
+    condition_text[1].textContent = lang_use[9];
+    condition_text[2].textContent = lang_use[10];
+    speed_info[0].textContent = lang_use[11];
+    speed_info[1].textContent = lang_use[12];
 });
 
 change_lang_eng.addEventListener('click', function (event) {
-    const condition_text_create = document.querySelectorAll('.condition_text_create');
-    const condition_text_delete = document.querySelectorAll('.condition_text_delete');
-    const condition_text_reclolor = document.querySelectorAll('.condition_text_recolor');
-    const condition_text_in_color = document.querySelectorAll('.condition_text_in_color');
-    const condition_text_if = document.querySelectorAll('.condition_text_if');
 
     change_lang_ru.style.color = '#bbbbbb';
     change_lang_eng.style.color = '#ffffff';
     lang_use = lang_en;
-    document.title = lang_use[0];
+        document.title = lang_use[0];
     _h1_info.textContent = lang_use[0];
     slider_text.textContent = slider.value + lang_use[6];
-    speed_info.textContent = lang_use[1];
     del_info.textContent = lang_use[2];
     fill_info.textContent = lang_use[3];
     run_info.textContent = lang_use[4];
-    code_header.textContent = lang_use[7]
-    for (let i = 0; i < condition_text_create.length; i++) {
-        condition_text_create[i].textContent = lang_use[8];
-    };
-    for (let i = 0; i < condition_text_delete.length; i++) {
-        condition_text_delete[i].textContent = lang_use[9];
-    };
-    for (let i = 0; i < condition_text_reclolor.length; i++) {
-        condition_text_reclolor[i].textContent = lang_use[10];
-    };
-    for (let i = 0; i < condition_text_in_color.length; i++) {
-        condition_text_in_color[i].textContent = lang_use[11];
-    };
-    for (let i = 0; i < condition_text_if.length; i++) {
-        condition_text_if[i].textContent = lang_use[12];
-    };
-    add_condition_btn.textContent = lang_use[13];
-    kill_condition_btn.textContent = lang_use[14];
-    recolor_condition_btn.textContent = lang_use[15];
-
+    code_header.textContent = lang_use[7];
+    condition_text[0].textContent = lang_use[8];
+    condition_text[1].textContent = lang_use[9];
+    condition_text[2].textContent = lang_use[10];
+    speed_info[0].textContent = lang_use[11];
+    speed_info[1].textContent = lang_use[12];
 });
 
         `condition_color_inputs[i].style.fontSize = table_head.offsetHeight * 0.5 + 'px'`;
