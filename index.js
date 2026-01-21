@@ -47,14 +47,23 @@ const fill_icon = document.getElementById('fill');
 const fill_info = document.querySelector('.fill');
 
 const cond_container = document.querySelector('.condition_container');
-const condition_text = document.querySelectorAll('.condition_text')
+const condition_text = document.querySelectorAll('.condition_text');
 const code_header = document.querySelector('.code_header');
 const code = document.querySelector('.code');
-const rule_condition = document.querySelectorAll('.rule_condition')
+const rule_condition = document.querySelectorAll('.rule_condition');
 
-selected_color = 'rgb(200, 210, 220)'
+const born_cond = document.querySelector('.born');
+const survive_cond = document.querySelector('.survive');
+const generations_cond = document.querySelector('.generations');
 
-var density = parseInt('50') * 0.01
+var born = '3';
+var survive = '23';
+var generations = '2';
+
+selected_color = 'rgb(200, 210, 220)';
+selected_rgb = '200, 210, 220';
+
+var density = parseInt('50') * 0.01;
 
 const lang_ru = ['Конструктор клеточных автоматов', 'Скорость',
     'Очистить', 'Заполнить', 'Запустить', 'Пауза', 'c', 'Правила',
@@ -101,6 +110,10 @@ code.style.fontSize = table_head.offsetHeight * 0.5 + 'px';
 
 cond_container.style.width = table_head.offsetWidth + 'px';
 
+born_cond.value = born;
+survive_cond.value = survive;
+generations_cond.value = generations;
+
 for (let i = 0; i < cl; i++) {
     for (let j = 0; j < st; j++) {
         div = document.createElement("div");
@@ -119,6 +132,9 @@ for (let i = 0; i < cl; i++) {
     }
 };
 
+const cells = document.querySelectorAll('.cell');
+
+
 slider[0].oninput = function () {
     slider_text[0].innerHTML = this.value + lang_use[6];
 };
@@ -127,10 +143,10 @@ slider[1].oninput = function () {
     slider_text[1].innerHTML = this.value + '%';
     density = parseInt(this.value) * 0.01
 };
-`
+
 window.addEventListener('resize', function () {
     this.location.reload()
-})`;
+});
 
 change_lang_ru.addEventListener('click', function (event) {
 
@@ -176,6 +192,18 @@ for (let i = 0; i < rule_condition.length; i++) {
     });
 };
 
+born_cond.addEventListener('input', function (event) {
+       born = this.value;
+});
+
+survive_cond.addEventListener('input', function (event) {
+        survive = this.value;
+});
+
+generations_cond.addEventListener('input', function (event) {
+        generations = this.value;
+});
+
 fill_button.addEventListener('click', function (event) {
     const cells = document.querySelectorAll('.cell');
     for (let i = 0; i < cells.length; i++) {
@@ -195,3 +223,24 @@ delete_button.addEventListener('click', function (event) {
     };
 });
 
+function int_to_color(num) {
+            if (num == 1){
+                return selected_color;
+            } else if (num == 0){
+                return 'rgb(34, 34, 34)'
+            } else {
+                return `rgb(${selected_rgb}, ${255 - num * 255 / generations})`
+            }; 
+};
+
+function color_to_int(color){
+    if (color == selected_color){
+        return 1
+    } else if (color == 'rgb(34, 34, 34)') {
+        return 0
+    } else {
+        return (255 - color.split(/[, ]+/).slice(-1)[0].slice(0, -1)) * generations / 255
+    }
+};
+console.log(int_to_color(12));
+console.log(color_to_int('rgb(200, 210, 220, -1275)'))
