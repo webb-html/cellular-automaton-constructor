@@ -1,3 +1,154 @@
+class Automaton { // второй основной класс который надо сделать
+    constructor(array, born_rule, survive_rule, generations) {
+        this.array = array; // основной массив
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                new Cell(i, j, array[i][j], this);
+            }
+        }
+        this.born_rule = born_rule; // здесь правила
+        this.survive_rule = survive_rule;
+        this.generations = parseInt(generations);
+        // список возможных позиций наших соседей от нас
+        this.neighbours = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+    }
+
+    // магический метод который дает возможность обращаться к классу с помощью []
+    // т.е. Placeholder[0][0] (в таком случае даем значение из таблицы)
+    // Note: This is handled by the Proxy in the constructor
+
+    // позволяет использовать len(Placeholder), тоже возвращаем из массива
+    get length() {
+        return this.array.length;
+    }
+
+    // позволяет писать print(Placeholder) и рисует матрицу
+    toString() { // скорее для отладки
+        let res = '';
+        for (let i = 0; i < this.array.length; i++) {
+            for (let j = 0; j < this.array[i].length; j++) {
+                if (typeof this.array[i][j] === 'number') {
+                    res += this.array[i][j].toString() + ' ';
+                } else {
+                    res += this.array[i][j].status.toString() + ' ';
+                }
+            }
+            res += '\n';
+        }
+        return res;
+    }
+
+    change(array) {
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array[i].length; j++) {
+                new Cell(i, j, array[i][j], this);
+            }
+        }
+    }
+
+    getlist() {
+        let list_int = [];
+        for (let i = 0; i < this.array.length; i++) {
+            list_int.push([]);
+            for (let j = 0; j < this.array[i].length; j++) {
+                list_int[i].push(this.array[i][j].status);
+            }
+        }
+        return list_int;
+    }
+
+    update() {
+        for (let i = 0; i < this.array.length; i++) {
+            for (let j = 0; j < this.array[i].length; j++) {
+                this.array[i][j].prepare_update();
+            }
+        }
+        for (let i = 0; i < this.array.length; i++) {
+            for (let j = 0; j < this.array[i].length; j++) {
+                this.array[i][j].update();
+            }
+        }
+    }
+}
+
+
+class Cell { // собственно клетка
+    constructor(i, j, status, automaton) { // инициализация
+        this.i = i; // индексы в массиве
+        this.j = j;
+
+        this.status = status; // наше состояние
+        this.new_status = status; // будущее состояние нужно чтобы смена была одновременно
+        this.automaton = automaton; // собственно твой класс к которому мы принадлежим
+        if (this.ne(this.automaton.array[this.i][this.j])) { // если там какая-то фигня, то мы меняем её на себя
+            this.automaton.array[i][j] = this;
+        }
+    }
+
+    // чтобы работало != на 42 строчке
+    ne(other) {
+        if (typeof other === 'number') {
+            return true;
+        }
+        return this.status !== other.status;
+    }
+
+    get_neighbours() { // сколько рядом соседей
+        let result = 0;
+        for (let i = 0; i < 8; i++) {
+            let index_1 = this.i + this.automaton.neighbours[i][0]; // индексы соседа
+            let index_2 = this.j + this.automaton.neighbours[i][1];
+            try {
+                if (this.automaton.array[index_1][index_2].status === 1) { // проверяем соседей
+                    result += 1;
+                }
+            } catch (e) { // вылетели за список
+                if (this.automaton.length <= index_1) { // соответственно уменьшаем индексы чтобы влезли
+                    index_1 = 0;
+                }
+                if (this.automaton.array[0].length <= index_2) { // сразу не проверяем т.к. 1) чтобы потом лет через 100 сделать
+                    index_2 = 0; // возможность выбора зацикливания 2) чуть быстрее
+                }
+                if (0 > index_1) {
+                    index_1 = this.automaton.length - 1;
+                }
+                if (0 > index_2) {
+                    index_2 = this.automaton.array[0].length - 1;
+                }
+                if (this.automaton.array[index_1][index_2].status === 1) {
+                    result += 1;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    prepare_update() { // готовимся к изменению, но не изменяем, чтобы другие клетки шли не по измененным данным
+        if (this.status === 0) {
+            if (this.automaton.born_rule.includes(this.get_neighbours().toString())) { // соответственно новые клетки
+                this.new_status = this.status + 1;
+            }
+        } else if (this.status === 1) { // существующие
+            if (!this.automaton.survive_rule.includes(this.get_neighbours().toString())) {
+                this.new_status = this.status + 1;
+                if (this.new_status === this.automaton.generations) {
+                    this.new_status = 0;
+                }
+            }
+        } else { // помирающие
+            this.new_status = this.status + 1;
+            if (this.new_status === this.automaton.generations) {
+                this.new_status = 0;
+            }
+        }
+    }
+
+    update() { // все клетки готовы, обновляем
+        this.status = this.new_status;
+    }
+}
+
 if (screen.width / screen.height > 1.5) {
     var st = 45;
     var cl = 15;
@@ -56,6 +207,11 @@ const born_cond = document.querySelector('.born');
 const survive_cond = document.querySelector('.survive');
 const generations_cond = document.querySelector('.generations');
 
+var list = [];
+var delay = 0;
+var enableTimer = false;
+var timer = null;
+
 var born = '3';
 var survive = '23';
 var generations = '2';
@@ -110,43 +266,68 @@ code.style.fontSize = table_head.offsetHeight * 0.5 + 'px';
 
 cond_container.style.width = table_head.offsetWidth + 'px';
 
+delay = parseFloat(slider[0].value) * 1000;
+
 born_cond.value = born;
 survive_cond.value = survive;
 generations_cond.value = generations;
 
 for (let i = 0; i < cl; i++) {
+    let tmp = [];
     for (let j = 0; j < st; j++) {
         div = document.createElement("div");
         div.style.height = cell_size + 'px';
         div.style.width = cell_size + 'px';
+
+        div.i = i;
+        div.j = j;
+
         div.classList.add('cell');
+
         div.addEventListener('click', function (event) {
             if (this.style.backgroundColor == 'rgb(34, 34, 34)' || this.style.backgroundColor == '') {
                 this.style.backgroundColor = selected_color;
+                list[this.i][this.j] = 1;
+                automaton.change(list);
             } else {
                 this.style.backgroundColor = '#222222';
+                list[this.i][this.j] = 0
+                automaton.change(list);
             };
+            console.log(automaton.getlist())
         });
 
+        tmp.push(0);
         board.appendChild(div);
-    }
+
+    };
+    list.push(tmp)
 };
 
-const cells = document.querySelectorAll('.cell');
+var automaton_array = [];
+for (let i = 0; i < cl; i++) {
+    let tmp = [];
+    for (let j = 0; j < st; j++) {
+        tmp.push(0)
+    }
+    automaton_array.push(tmp)
+}
+var automaton = new Automaton(automaton_array, born, survive, generations)
 
 
 slider[0].oninput = function () {
     slider_text[0].innerHTML = this.value + lang_use[6];
+    delay = parseFloat(this.value) * 1000;
 };
 
 slider[1].oninput = function () {
     slider_text[1].innerHTML = this.value + '%';
-    density = parseInt(this.value) * 0.01
+    density = parseInt(this.value) * 0.01;
 };
 
-window.addEventListener('resize', function () {
+`window.addEventListener('resize', function () {
     this.location.reload()
-});
+});`
 
 change_lang_ru.addEventListener('click', function (event) {
 
@@ -193,54 +374,83 @@ for (let i = 0; i < rule_condition.length; i++) {
 };
 
 born_cond.addEventListener('input', function (event) {
-       born = this.value;
+    born = this.value;
+    automaton.born_rule = this.value;
 });
 
 survive_cond.addEventListener('input', function (event) {
-        survive = this.value;
+    survive = this.value;
+    automaton.survive_rule = this.value;
 });
 
 generations_cond.addEventListener('input', function (event) {
-        generations = this.value;
+    generations = this.value;
+    automaton.generations = this.value;
 });
 
 fill_button.addEventListener('click', function (event) {
     const cells = document.querySelectorAll('.cell');
-    for (let i = 0; i < cells.length; i++) {
-        var random_life = Math.random();
-        if (random_life <= density) {
-            cells[i].style.backgroundColor = 'rgb(200, 210, 220)';
-        } else {
-            cells[i].style.backgroundColor = '#222222';
-        }
+    for (let i = 0; i < cl; i++) {
+        let tmp = []
+        for (let j = 0; j < st; j++) {
+            var random_life = Math.random();
+            if (random_life <= density) {
+                cells[i * st + j].style.backgroundColor = 'rgb(200, 210, 220)';
+                tmp.push(1);
+            } else {
+                cells[i * st + j].style.backgroundColor = '#222222';
+                tmp.push(0);
+            }
+        };
+        list[i] = tmp;
     };
+    automaton.change(list);
+    console.log(automaton.getlist());
 });
 
 delete_button.addEventListener('click', function (event) {
     const cells = document.querySelectorAll('.cell');
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].style.backgroundColor = '#222222';
+    for (let i = 0; i < cl; i++) {
+        let tmp = []
+        for (let j = 0; j < st; j++) {
+            cells[i * st + j].style.backgroundColor = '#222222';
+            tmp.push(0);
+        };
+        list[i] = tmp;
     };
+    automaton.change(list);
+    console.log(automaton.getlist());
 });
 
-function int_to_color(num) {
-            if (num == 1){
-                return selected_color;
-            } else if (num == 0){
-                return 'rgb(34, 34, 34)'
-            } else {
-                return `rgb(${selected_rgb}, ${255 - num * 255 / generations})`
-            }; 
-};
+run_button.addEventListener('click', () => {
+    enableTimer = !enableTimer;
 
-function color_to_int(color){
-    if (color == selected_color){
-        return 1
-    } else if (color == 'rgb(34, 34, 34)') {
-        return 0
-    } else {
-        return (255 - color.split(/[, ]+/).slice(-1)[0].slice(0, -1)) * generations / 255
+    if (!enableTimer) {
+        clearInterval(timer);
+        return;
     }
-};
-console.log(int_to_color(12));
-console.log(color_to_int('rgb(200, 210, 220, -1275)'))
+
+    let i = 0;
+    timer = setInterval(() => {
+        list = automaton.getlist()
+        automaton.update();
+        const cells = document.querySelectorAll('.cell');
+        for (let i = 0; i < cl; i++) {
+            for (let j = 0; j < st; j++) {
+                if (list[cells[i * st + j].i][cells[i * st + j].j] == 1) {
+                    cells[i * st + j].style.backgroundColor = selected_color;
+                } else if (list[cells[i * st + j].i][cells[i * st + j].j] == 0) {
+                    cells[i * st + j].style.backgroundColor = 'rgb(34, 34, 34)';
+                } else {
+                    let num = list[cells[i * st + j].i][cells[i * st + j].j];
+                    cells[i * st + j].style.backgroundColor = `rgb(${selected_rgb}, ${255 - num * 255 / generations})`;
+                };
+                
+            };
+        };
+        console.log(automaton.getlist())
+    }, delay);
+});
+
+console.log(automaton.getlist())
+
