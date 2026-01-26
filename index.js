@@ -138,7 +138,7 @@ class Cell { // собственно клетка
             }
         } else { // помирающие
             this.new_status = this.status + 1;
-            if (this.new_status === this.automaton.generations) {
+            if (this.new_status == this.automaton.generations) {
                 this.new_status = 0;
             }
         }
@@ -443,7 +443,7 @@ run_button.addEventListener('click', () => {
                     cells[i * st + j].style.backgroundColor = 'rgb(34, 34, 34)';
                 } else {
                     let num = list[cells[i * st + j].i][cells[i * st + j].j];
-                    cells[i * st + j].style.backgroundColor = `rgb(${selected_rgb}, ${255 - num * 255 / generations})`;
+                    cells[i * st + j].style.backgroundColor = `rgb(${selected_rgb}, ${(255 - num * 255 / generations) / 255})`;
                 };
                 
             };
