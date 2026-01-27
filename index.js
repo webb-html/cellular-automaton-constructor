@@ -149,18 +149,24 @@ class Cell { // собственно клетка
     }
 }
 
+const scale = 2;
+
 if (screen.width / screen.height > 1.5) {
-    var st = 45;
-    var cl = 15;
+    var h1_display = 'white';
+    var st = 45 * scale;
+    var cl = 15 * scale;
 } else if (screen.width / screen.height <= 1.5 && screen.width / screen.height > 1.334) {
-    var st = 40;
-    var cl = 15;
+    var h1_display = 'white';
+    var st = 40 * scale;
+    var cl = 15 * scale;
 } else if (screen.width / screen.height <= 1.334 && screen.width / screen.height > 1) {
-    var st = 35;
-    var cl = 15;
+    var h1_display = 'white';
+    var st = 35 * scale;
+    var cl = 15 * scale;
 } else {
-    var st = 15;
-    var cl = 15;
+    var h1_display = 'transparent';
+    var st = 15 * scale;
+    var cl = 15 * scale;
 }
 console.log(screen.width / screen.height)
 
@@ -180,7 +186,7 @@ const board = document.querySelector('.cell_container');
 const slider = document.querySelectorAll('.slider');
 const slider_text = document.querySelectorAll('.slider_text');
 
-const cell_size = body.offsetHeight / 30;
+const cell_size = body.offsetHeight / (30 * scale);
 
 const run_button = document.querySelector('.run_btn');
 const run_icon = document.getElementById('run');
@@ -234,6 +240,7 @@ document.title = lang_use[0];
 sel_lang.style.fontSize = sel_lang.offsetHeight * 0.33 + 'px';
 change_lang_ru.style.color = '#bbbbbb';
 
+_h1.style.color = h1_display;
 _h1.style.height = body.offsetHeight * 0.1 + 'px';
 _h1.style.fontSize = _h1.offsetHeight * 0.33 + 'px';
 _h1_info.textContent = lang_use[0];
@@ -318,6 +325,8 @@ var automaton = new Automaton(automaton_array, born, survive, generations)
 slider[0].oninput = function () {
     slider_text[0].innerHTML = this.value + lang_use[6];
     delay = parseFloat(this.value) * 1000;
+    switch_run_status();
+    switch_run_status();
 };
 
 slider[1].oninput = function () {
@@ -339,7 +348,12 @@ change_lang_ru.addEventListener('click', function (event) {
     slider_text.textContent = slider.value + lang_use[6];
     del_info.textContent = lang_use[2];
     fill_info.textContent = lang_use[3];
-    run_info.textContent = lang_use[4];
+    console.log(run_info.textContent, lang_en[4], run_info.textContent == lang_en[4])
+    if (run_info.textContent == lang_en[4]) {
+        run_info.textContent = lang_use[4];
+    } else {
+        run_info.textContent = lang_use[5];
+    };
     code_header.textContent = lang_use[7];
     condition_text[0].textContent = lang_use[8];
     condition_text[1].textContent = lang_use[9];
@@ -358,8 +372,12 @@ change_lang_eng.addEventListener('click', function (event) {
     slider_text.textContent = slider.value + lang_use[6];
     del_info.textContent = lang_use[2];
     fill_info.textContent = lang_use[3];
-    run_info.textContent = lang_use[4];
-    code_header.textContent = lang_use[7];
+    console.log(run_info.textContent, lang_ru[4], run_info.textContent == lang_ru[4])
+    if (run_info.textContent == lang_ru[4]) {
+        run_info.textContent = lang_use[4];
+    } else {
+        run_info.textContent = lang_use[5];
+    }; code_header.textContent = lang_use[7];
     condition_text[0].textContent = lang_use[8];
     condition_text[1].textContent = lang_use[9];
     condition_text[2].textContent = lang_use[10];
@@ -423,6 +441,11 @@ delete_button.addEventListener('click', function (event) {
 });
 
 run_button.addEventListener('click', () => {
+    switch_text();
+    switch_run_status();
+});
+
+function switch_run_status() {
     enableTimer = !enableTimer;
 
     if (!enableTimer) {
@@ -443,14 +466,29 @@ run_button.addEventListener('click', () => {
                     cells[i * st + j].style.backgroundColor = 'rgb(34, 34, 34)';
                 } else {
                     let num = list[cells[i * st + j].i][cells[i * st + j].j];
-                    cells[i * st + j].style.backgroundColor = `rgb(${selected_rgb}, ${(255 - num * 255 / generations) / 255})`;
+                    let alfa = (255 - num * 255 / generations) / 255;
+                    if (alfa == 0) {
+                        cells[i * st + j].style.backgroundColor = selected_color;
+                    } else {
+                        cells[i * st + j].style.backgroundColor = `rgb(${selected_rgb}, ${(255 - num * 255 / generations) / 255})`;
+                    }
                 };
-                
+
             };
         };
         console.log(automaton.getlist())
     }, delay);
-});
+};
+
+function switch_text() {
+    if (run_info.textContent == lang_use[4]) {
+        run_info.textContent = lang_use[5];
+        run_info.style.color = '#ffd4d4';
+    } else {
+        run_info.textContent = lang_use[4];
+        run_info.style.color = '#d5ffd4';
+    };
+};
 
 console.log(automaton.getlist())
 

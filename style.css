@@ -180,13 +180,13 @@ p {
 
 .run {
     cursor: pointer;
+    color: #d5ffd4;
 }
 
 .run_btn {
     position: relative;
     display: flex;
     align-items: center;
-    /* сделать зеленым */
     background-color: #3634346e;
     padding: 0.3em;
     border-radius: 0.5em;
@@ -212,7 +212,7 @@ p {
 .cell {
     background-color: #222222;
     box-shadow: 0 0 0.1em #000000;
-    transition: all 0.15s linear;
+    /*transition: all 0.15s linear;*/
 }
 
 .code {
