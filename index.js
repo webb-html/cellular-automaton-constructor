@@ -467,7 +467,7 @@ function switch_run_status() {
                 } else {
                     let num = list[cells[i * st + j].i][cells[i * st + j].j];
                     let alfa = (255 - num * 255 / generations) / 255;
-                    if (alfa == 0) {
+                    if (alfa <= 0) {
                         cells[i * st + j].style.backgroundColor = selected_color;
                     } else {
                         cells[i * st + j].style.backgroundColor = `rgb(${selected_rgb}, ${(255 - num * 255 / generations) / 255})`;
