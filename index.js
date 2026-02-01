@@ -351,7 +351,7 @@ change_lang_ru.addEventListener('click', function (event) {
     console.log(run_info.textContent, lang_en[4], run_info.textContent == lang_en[4])
     if (run_info.textContent == lang_en[4]) {
         run_info.textContent = lang_use[4];
-    } else {
+    } else if(run_info.textContent == lang_en[5]) {
         run_info.textContent = lang_use[5];
     };
     code_header.textContent = lang_use[7];
@@ -375,7 +375,7 @@ change_lang_eng.addEventListener('click', function (event) {
     console.log(run_info.textContent, lang_ru[4], run_info.textContent == lang_ru[4])
     if (run_info.textContent == lang_ru[4]) {
         run_info.textContent = lang_use[4];
-    } else {
+    } else if(run_info.textContent == lang_en[5]){
         run_info.textContent = lang_use[5];
     }; code_header.textContent = lang_use[7];
     condition_text[0].textContent = lang_use[8];
