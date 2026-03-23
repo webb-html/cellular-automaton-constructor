@@ -1,4 +1,4 @@
-class Automaton { // второй основной класс который надо сделать
+class Automaton {
     constructor(array, born_rule, survive_rule, generations) {
         this.array = array; // основной массив
         for (let i = 0; i < array.length; i++) {
@@ -13,17 +13,11 @@ class Automaton { // второй основной класс который н�
         this.neighbours = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
     }
 
-    // магический метод который дает возможность обращаться к классу с помощью []
-    // т.е. Placeholder[0][0] (в таком случае даем значение из таблицы)
-    // Note: This is handled by the Proxy in the constructor
-
-    // позволяет использовать len(Placeholder), тоже возвращаем из массива
     get length() {
         return this.array.length;
     }
 
-    // позволяет писать print(Placeholder) и рисует матрицу
-    toString() { // скорее для отладки
+    toString() {
         let res = '';
         for (let i = 0; i < this.array.length; i++) {
             for (let j = 0; j < this.array[i].length; j++) {
@@ -71,16 +65,15 @@ class Automaton { // второй основной класс который н�
     }
 }
 
-
-class Cell { // собственно клетка
-    constructor(i, j, status, automaton) { // инициализация
-        this.i = i; // индексы в массиве
+class Cell {
+    constructor(i, j, status, automaton) { 
+        this.i = i;
         this.j = j;
 
-        this.status = status; // наше состояние
-        this.new_status = status; // будущее состояние нужно чтобы смена была одновременно
-        this.automaton = automaton; // собственно твой класс к которому мы принадлежим
-        if (this.ne(this.automaton.array[this.i][this.j])) { // если там какая-то фигня, то мы меняем её на себя
+        this.status = status;
+        this.new_status = status; 
+        this.automaton = automaton;
+        if (this.ne(this.automaton.array[this.i][this.j])) { 
             this.automaton.array[i][j] = this;
         }
     }
@@ -233,12 +226,12 @@ const lang_ru = ['Конструктор клеточных автоматов',
 const lang_en = ['Cellular automaton consructor', 'Speed',
     'Clear', 'Random fill', 'Run', 'Pause', 's', 'Rules',
     'Born(B):', 'Survive(S):', 'Generations:', 'Delay', 'Density'];
-var lang_use = lang_en;
+var lang_use = lang_ru;
 
 document.title = lang_use[0];
 
 sel_lang.style.fontSize = sel_lang.offsetHeight * 0.33 + 'px';
-change_lang_ru.style.color = '#bbbbbb';
+change_lang_eng.style.color = '#bbbbbb';
 
 _h1.style.color = h1_display;
 _h1.style.height = body.offsetHeight * 0.1 + 'px';
@@ -335,20 +328,14 @@ slider[1].oninput = function () {
 };
 
 `window.addEventListener('resize', function () {
-    this.location.reload()
+    this.location.reload();
 });`
-
-change_lang_ru.addEventListener('click', function (event) {
-
-    change_lang_eng.style.color = '#bbbbbb';
-    change_lang_ru.style.color = '#ffffff';
-    lang_use = lang_ru;
-    document.title = lang_use[0];
+function change_lang(){
+     document.title = lang_use[0];
     _h1_info.textContent = lang_use[0];
     slider_text.textContent = slider.value + lang_use[6];
     del_info.textContent = lang_use[2];
     fill_info.textContent = lang_use[3];
-    console.log(run_info.textContent, lang_en[4], run_info.textContent == lang_en[4])
     if (run_info.textContent == lang_en[4]) {
         run_info.textContent = lang_use[4];
     } else if(run_info.textContent == lang_en[5]) {
@@ -360,6 +347,15 @@ change_lang_ru.addEventListener('click', function (event) {
     condition_text[2].textContent = lang_use[10];
     speed_info[0].textContent = lang_use[11];
     speed_info[1].textContent = lang_use[12];
+};
+
+change_lang_ru.addEventListener('click', function (event) {
+
+    change_lang_eng.style.color = '#bbbbbb';
+    change_lang_ru.style.color = '#ffffff';
+    lang_use = lang_ru;
+    change_lang();
+   
 });
 
 change_lang_eng.addEventListener('click', function (event) {
@@ -367,22 +363,7 @@ change_lang_eng.addEventListener('click', function (event) {
     change_lang_ru.style.color = '#bbbbbb';
     change_lang_eng.style.color = '#ffffff';
     lang_use = lang_en;
-    document.title = lang_use[0];
-    _h1_info.textContent = lang_use[0];
-    slider_text.textContent = slider.value + lang_use[6];
-    del_info.textContent = lang_use[2];
-    fill_info.textContent = lang_use[3];
-    console.log(run_info.textContent, lang_ru[4], run_info.textContent == lang_ru[4])
-    if (run_info.textContent == lang_ru[4]) {
-        run_info.textContent = lang_use[4];
-    } else if(run_info.textContent == lang_en[5]){
-        run_info.textContent = lang_use[5];
-    }; code_header.textContent = lang_use[7];
-    condition_text[0].textContent = lang_use[8];
-    condition_text[1].textContent = lang_use[9];
-    condition_text[2].textContent = lang_use[10];
-    speed_info[0].textContent = lang_use[11];
-    speed_info[1].textContent = lang_use[12];
+    change_lang();
 });
 
 for (let i = 0; i < rule_condition.length; i++) {
@@ -491,4 +472,4 @@ function switch_text() {
 };
 
 console.log(automaton.getlist())
-
+change_lang();
